@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AirReader サポート - よくある質問と問い合わせ先">
+    <title>サポート - AirReader</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .support-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .support-content h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 48px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+        .support-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        .support-content p {
+            margin-bottom: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        .support-content ul {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        .support-content li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        .faq-item {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        .contact-box {
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 48px;
+            text-align: center;
+        }
+        .contact-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+        .contact-button:hover {
+            background-color: var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="support-content">
+        <a href="index.html" class="back-link">← ホームに戻る</a>
+
+        <h1>サポート</h1>
+        <p style="color: var(--text-secondary);">AirReaderに関するよくある質問と問い合わせ先をご案内します。</p>
+
+        <h2>よくある質問（FAQ）</h2>
+
+        <div class="faq-item">
+            <div class="faq-question">Q1. ファイルはどこに保存されますか？</div>
+            <div class="faq-answer">
+                AirReaderは、ユーザーが選択したファイル（PDFやZIP）を直接開きます。ファイルはアプリ内にコピー・保存されず、
+                iCloud DriveやUSBドライブなど、元の保存場所から直接読み込まれます。読書中のみ、端末の一時フォルダに
+                キャッシュが作成されますが、本を閉じると自動的に削除されます。
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q2. 一時ファイルが残ってしまった場合、どうすれば削除できますか？</div>
+            <div class="faq-answer">
+                通常は本を閉じる際に自動的に削除されますが、アプリが予期せず終了した場合など、一時ファイルが残ることがあります。
+                その場合は、ホーム画面（ファイル選択画面）の右上にある「消しゴムアイコン」をタップすることで、
+                手動で一時キャッシュを一括削除できます。削除前に現在のキャッシュサイズが表示されます。
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q3. 対応しているファイル形式は何ですか？</div>
+            <div class="faq-answer">
+                AirReaderは以下のファイル形式に対応しています：
+                <ul style="margin-top: 12px;">
+                    <li><strong>PDF形式</strong> - 電子書籍や文書ファイル</li>
+                    <li><strong>ZIP形式</strong> - 画像ファイル（JPEG、PNG等）を含むZIPアーカイブ</li>
+                </ul>
+                ZIPファイル内の画像は自動的に検出・並び替えされ、コミックとして表示されます。
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q4. 読み込み速度が遅い場合はどうすればよいですか？</div>
+            <div class="faq-answer">
+                ファイルの読み込み速度は、ファイルサイズ、端末の性能、保存場所（iCloud Drive、USBドライブ等）、
+                ネットワーク環境（iCloud Driveの場合）によって変動します。特に以下の点をご確認ください：
+                <ul style="margin-top: 12px;">
+                    <li>iCloud Driveに保存されたファイルは、ダウンロード完了まで時間がかかることがあります</li>
+                    <li>大容量のZIPファイル（数百MB以上）は、解凍に時間を要します</li>
+                    <li>端末のストレージ空き容量が少ない場合、処理が遅くなることがあります</li>
+                </ul>
+                可能であれば、ローカルストレージまたは高速なUSBドライブに保存したファイルをご利用ください。
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <h3 style="margin-top: 0;">その他のお問い合わせ</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 8px;">
+                上記で解決しない問題や、ご意見・ご要望がございましたら、<br>
+                以下のメールアドレスまでお気軽にお問い合わせください。
+            </p>
+            <a href="mailto:floppy26p@gmail.com?subject=%5BAirReader%5D%20" class="contact-button">
+                メールでお問い合わせ
+            </a>
+            <p style="font-size: 14px; color: var(--text-secondary); margin-top: 16px; margin-bottom: 0;">
+                Email: floppy26p@gmail.com
+            </p>
+        </div>
+
+        <div style="margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border-color);">
+            <a href="index.html" class="back-link">← ホームに戻る</a>
+        </div>
+    </div>
+</body>
+</html>
