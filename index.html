@@ -8,96 +8,224 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <h1 class="app-name">AirReader</h1>
-            <p class="catchphrase">端末に優しい、快適な漫画リーダー</p>
+    <a class="skip-link" href="#main">メインコンテンツへスキップ</a>
+
+    <p class="prelaunch-banner">近日公開予定 — App Storeでのリリースに向けて準備中です</p>
+
+    <header class="masthead">
+        <div class="container masthead__inner">
+            <a href="index.html" class="masthead__logo">AirReader<span>for iPhone &amp; iPad</span></a>
+            <span class="status-badge">近日公開</span>
         </div>
     </header>
 
-    <main>
-        <section class="features">
-            <div class="container">
-                <h2 class="section-title">3つの特徴</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📂</div>
-                        <h3>インポート不要</h3>
-                        <p>iCloud DriveやUSBドライブのファイルを直接開けます。アプリ内にコピーする手間も、容量も不要です。<br>
-                        <small style="font-size: 13px; color: var(--text-secondary); opacity: 0.8;">※読み込み速度はファイルサイズや保存場所により変動します</small></p>
+    <main id="main">
+        <section class="hero">
+            <div class="container hero__inner">
+                <div class="hero__copy">
+                    <p class="eyebrow eyebrow--on-brand"><span class="status-dot" aria-hidden="true"></span>近日公開</p>
+                    <h1 class="hero__title">AirReader</h1>
+                    <p class="hero__lead">
+                        iCloud DriveやUSBドライブのファイルを、コピーもインポートも不要で直接開く。
+                        読み終えればキャッシュは自動で消える、端末にやさしい漫画ビューアです。
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#features" class="pill pill--solid-light">4つの特徴を見る</a>
+                        <span class="pill pill--ghost-light pill--status">App Store 近日公開</span>
                     </div>
+                </div>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">💾</div>
-                        <h3>端末に優しい</h3>
-                        <p>読書中のファイルのみを一時的にキャッシュ。閉じたら自動的に削除されるので、ストレージを圧迫しません。</p>
+                <!-- TODO: 新デザインに合わせた端末モックアップ画像が出来たら、.hero__visual の中身を差し替えてください -->
+                <div class="hero__visual">
+                    <div class="device-placeholder device-placeholder--hero" aria-hidden="true">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4">
+                            <rect x="8" y="3" width="12" height="22" rx="2.5"/>
+                            <path d="M12 21h4"/>
+                        </svg>
                     </div>
+                    <span class="chip chip--dark chip--pos-a">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h8M4 10h12M4 14h6"/></svg>
+                        右開き・左開き
+                    </span>
+                    <span class="chip chip--light chip--pos-b">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v6l4 2"/><circle cx="10" cy="10" r="7"/></svg>
+                        キャッシュは自動削除
+                    </span>
+                </div>
+            </div>
+            <p class="hero__scroll">Scroll<span aria-hidden="true">↓</span></p>
+        </section>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">🚫</div>
-                        <h3>読書中広告ゼロ</h3>
-                        <p>読書体験を損なわないよう、本を読んでいる間は広告を一切表示しません。</p>
+        <section class="features" id="features">
+            <div class="container features__head">
+                <p class="eyebrow">Features</p>
+                <h2 class="features__title">4つの特徴</h2>
+                <p class="features__sub">軽さを支える、4つの工夫。</p>
+            </div>
+
+            <div class="container features__list">
+                <div class="feature-row">
+                    <!-- TODO: 新デザインに合わせた端末モックアップ画像に差し替え -->
+                    <div class="device-placeholder device-placeholder--row device-placeholder--brand">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M8 4h8l4 4v14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/>
+                            <path d="M16 4v4h4"/>
+                            <path d="M3 14h5M5.5 11.5 3 14l2.5 2.5"/>
+                        </svg>
+                    </div>
+                    <div class="feature-row__body">
+                        <p class="eyebrow">ファイル</p>
+                        <h3 class="feature-row__title">インポート不要</h3>
+                        <p class="feature-row__text">iCloud DriveやUSBドライブのファイルを直接開けます。アプリ内にコピーする手間も、容量も不要です。</p>
+                        <p class="feature-row__note"><span class="note-mark">※</span> 読み込み速度はファイルサイズや保存場所により変動します。</p>
+                    </div>
+                </div>
+
+                <div class="feature-row feature-row--reverse">
+                    <!-- TODO: 新デザインに合わせた端末モックアップ画像に差し替え -->
+                    <div class="device-placeholder device-placeholder--row device-placeholder--navy">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M5 12V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4"/>
+                            <path d="M5 12h18l-1.5 9a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7L5 12Z"/>
+                            <path d="M11 16.5 14 19l3-2.5" stroke-dasharray="1 3.2"/>
+                        </svg>
+                    </div>
+                    <div class="feature-row__body">
+                        <p class="eyebrow">ストレージ</p>
+                        <h3 class="feature-row__title">端末に優しい</h3>
+                        <p class="feature-row__text">読書中のファイルのみを一時的にキャッシュ。閉じたら自動的に削除されるので、ストレージを圧迫しません。</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <!-- TODO: 新デザインに合わせた端末モックアップ画像に差し替え -->
+                    <div class="device-placeholder device-placeholder--row device-placeholder--orange">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="5" y="8" width="18" height="12" rx="1.5"/>
+                            <path d="M5 8l18 12"/>
+                        </svg>
+                    </div>
+                    <div class="feature-row__body">
+                        <p class="eyebrow">広告</p>
+                        <h3 class="feature-row__title">読書中広告ゼロ</h3>
+                        <p class="feature-row__text">読書体験を損なわないよう、本を読んでいる間は広告を一切表示しません。</p>
+                    </div>
+                </div>
+
+                <div class="feature-row feature-row--reverse">
+                    <!-- TODO: 新デザインに合わせた端末モックアップ画像に差し替え -->
+                    <div class="device-placeholder device-placeholder--row device-placeholder--brand">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="6" width="9" height="16" rx="1"/>
+                            <rect x="16" y="6" width="9" height="16" rx="1"/>
+                            <path d="M12.5 14h3"/>
+                        </svg>
+                    </div>
+                    <div class="feature-row__body">
+                        <p class="eyebrow">表示</p>
+                        <h3 class="feature-row__title">読書スタイルに合わせた表示</h3>
+                        <p class="feature-row__text">iPadでは自動的に見開き表示、iPhoneでは1ページ表示に切り替わります。右開き・左開きの切り替えも設定から変更できます。</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="screenshots">
-            <div class="container">
-                <h2 class="section-title">アプリ画面</h2>
-
-                <div class="device-section">
-                    <h3 class="device-title">iPhone</h3>
-                    <div class="screenshots-grid iphone">
-                        <div class="screenshot-frame">
-                            <div class="screenshot-placeholder iphone-screen">
-                                <p>iPhone 画面 1</p>
-                            </div>
-                        </div>
-                        <div class="screenshot-frame">
-                            <div class="screenshot-placeholder iphone-screen">
-                                <p>iPhone 画面 2</p>
-                            </div>
-                        </div>
-                        <div class="screenshot-frame">
-                            <div class="screenshot-placeholder iphone-screen">
-                                <p>iPhone 画面 3</p>
-                            </div>
-                        </div>
+        <section class="value-band">
+            <p class="value-band__watermark" aria-hidden="true">Zero Ads</p>
+            <div class="container value-band__inner">
+                <p class="eyebrow eyebrow--on-brand">AirReaderの考え方</p>
+                <div class="value-band__grid">
+                    <div class="value-tile">
+                        <span class="value-tile__icon value-tile__icon--brand" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="14" height="9" rx="1.2"/><path d="M3 6l14 9"/></svg>
+                        </span>
+                        <p class="value-tile__num">広告 0</p>
+                        <p class="value-tile__label">読書中は広告を一切表示しません</p>
                     </div>
-                </div>
-
-                <div class="device-section">
-                    <h3 class="device-title">iPad</h3>
-                    <div class="screenshots-grid ipad">
-                        <div class="screenshot-frame">
-                            <div class="screenshot-placeholder ipad-screen">
-                                <p>iPad 画面 1</p>
-                            </div>
-                        </div>
-                        <div class="screenshot-frame">
-                            <div class="screenshot-placeholder ipad-screen">
-                                <p>iPad 画面 2</p>
-                            </div>
-                        </div>
+                    <div class="value-tile">
+                        <span class="value-tile__icon value-tile__icon--orange" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h6l3 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/></svg>
+                        </span>
+                        <p class="value-tile__num">コピー 0</p>
+                        <p class="value-tile__label">ファイルはそのまま直接開きます</p>
+                    </div>
+                    <div class="value-tile">
+                        <span class="value-tile__icon value-tile__icon--brand" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="11" y="3" width="6" height="6" rx="1"/><rect x="3" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="6" height="6" rx="1"/></svg>
+                        </span>
+                        <p class="value-tile__num">ZIP / PDF</p>
+                        <p class="value-tile__label">対応フォーマット</p>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section class="gallery">
+            <div class="container gallery__head">
+                <p class="eyebrow">Screens</p>
+                <h2 class="gallery__title">アプリ画面</h2>
+                <p class="gallery__sub">実際の画面、3枚。</p>
+            </div>
+            <div class="container gallery__grid">
+                <div class="float-card">
+                    <img src="iPad_1.png" alt="iPadのファイル一覧画面のスクリーンショット">
+                    <span class="float-card__tag">iPad</span>
+                </div>
+                <div class="float-card">
+                    <img src="iPad_2.png" alt="iPadでキャッシュ削除を確認するダイアログのスクリーンショット">
+                    <span class="float-card__tag">iPad</span>
+                </div>
+                <div class="float-card">
+                    <img src="iPad_3.png" alt="iPadで漫画を見開き表示しているスクリーンショット">
+                    <span class="float-card__tag">iPad</span>
+                </div>
+            </div>
+            <p class="container gallery__credit">
+                画面内に表示している漫画作品：「ブラックジャックによろしく」 佐藤秀峰<br>
+                Give My Regards to Black Jack / SHUHO SATO
+            </p>
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="closing">
         <div class="container">
-            <a href="#" class="download-button">App Storeからダウンロード</a>
-            <div class="footer-links">
-                <a href="support.html">サポート</a>
-                <span style="margin: 0 12px; color: var(--border-color);">|</span>
-                <a href="privacy-policy.html">プライバシーポリシー</a>
-                <span style="margin: 0 12px; color: var(--border-color);">|</span>
-                <a href="mailto:floppy26p@gmail.com?subject=%5BAirReader%5D%20">お問い合わせ</a>
+            <p class="eyebrow eyebrow--on-brand">AirReader</p>
+            <h2 class="closing__title">今日から、軽やかな読書を。</h2>
+            <p class="closing__lead">インポート不要、広告ゼロ、ストレージにやさしい。</p>
+            <!-- TODO: 公開後、ここに実際のApp StoreのリンクをCTAとして設置してください -->
+            <span class="pill pill--solid-light pill--status">App Store 近日公開</span>
+
+            <div class="cache-bar" data-cache-bar>
+                <div class="cache-bar__track" aria-hidden="true"><div class="cache-bar__fill"></div></div>
+                <p class="cache-bar__caption">閉じれば、キャッシュは消えます。</p>
             </div>
-            <p class="copyright">&copy; 2026 AirReader. All rights reserved.</p>
+
+            <div class="closing__links">
+                <a href="support.html">サポート</a>
+                <span class="closing__divider">|</span>
+                <a href="privacy-policy.html">プライバシーポリシー</a>
+                <span class="closing__divider">|</span>
+                <button type="button" class="link-button" data-email-link>お問い合わせ</button>
+            </div>
+            <p class="closing__copyright">&copy; 2026 AirReader. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var bar = document.querySelector('[data-cache-bar]');
+            if (!bar || !('IntersectionObserver' in window)) return;
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        bar.classList.add('is-visible');
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.6 });
+            observer.observe(bar);
+        })();
+    </script>
+    <script src="contact.js" defer></script>
 </body>
 </html>

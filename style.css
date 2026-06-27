@@ -1,351 +1,1074 @@
-/* リセット & ベース設定 */
+/* ============================================================
+   AirReader — Design system: "Brand Blue"
+   参照（payn.io）のテイスト — 鮮やかなブランドブルー、ピル型ボタン、
+   太い見出し、写真/モックアップ+浮遊チップのヒーロー、濃紺の数値帯 —
+   をAirReaderの実際のコピーと機能に合わせて再構成。
+   ============================================================ */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 見出し用フォント: 自前ホスティング（見出しで実際に使う文字のみのサブセット）
+   外部CDNには通信せず、本文は引き続きシステムフォントでオフライン安定性を保つ */
+@font-face {
+    font-family: 'Zen Kaku Gothic New';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('fonts/ZenKakuGothicNew-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Zen Kaku Gothic New';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('fonts/ZenKakuGothicNew-900.woff2') format('woff2');
+}
+
 :root {
-    --primary-color: #4A5568;
-    --primary-hover: #2D3748;
-    --accent-color: #ED8936;
-    --accent-hover: #DD6B20;
-    --text-primary: #1A202C;
-    --text-secondary: #718096;
-    --bg-light: #F7FAFC;
-    --bg-white: #FFFFFF;
-    --bg-cream: #FFFAF0;
-    --border-color: #E2E8F0;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    /* --- color: 鮮やかなブランドブルーを主役に、ネイビーを一箇所だけの濃色アンカー、
+       オレンジを控えめな第二アクセントとして使う --- */
+    --brand: #0091FE;
+    --brand-deep: #0041D1;
+    --navy: #09253A;
+    --orange: #FE8044;
+
+    --white: #FFFFFF;
+    --paper: #FFFFFF;       /* page / section background */
+    --paper-tint: #F4F8FD;  /* very light blue-tinted alt section background */
+    --line: rgba(11, 15, 25, 0.08);
+
+    --ink: #0B0F19;
+    --ink-soft: #5B6472;
+
+    /* text-on-brand: 大きい太字見出し・ボタンのみに使う（本文サイズには使わない） */
+    --on-brand: #FFFFFF;
+    --on-navy: #FFFFFF;
+    --on-navy-soft: rgba(255, 255, 255, 0.68);
+
+    --radius: 24px;
+    --radius-sm: 14px;
+    --shadow: 0 24px 48px -24px rgba(11, 15, 25, 0.18), 0 8px 16px -8px rgba(11, 15, 25, 0.10);
+    --shadow-deep: 0 32px 64px -28px rgba(11, 15, 25, 0.28), 0 12px 24px -12px rgba(11, 15, 25, 0.14);
+
+    --z-skip-link: 100;
+
+    --font-display: 'Zen Kaku Gothic New', -apple-system, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+    --font-body: -apple-system, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+}
+
+/* このサイトはブランドカラー主体の固定デザイン（参照サイトと同様、OSのダーク
+   モードに応じた配色反転は行わない）。本文の読みやすさのみ、わずかに調整する。 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink-soft: #6B7480;
+    }
 }
 
 html {
     scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Meiryo, sans-serif;
-    color: var(--text-primary);
-    line-height: 1.6;
-    background-color: var(--bg-cream);
+    font-family: var(--font-body);
+    background-color: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--brand);
+}
+
+img {
+    max-width: 100%;
+}
+
+:focus-visible {
+    outline: 3px solid var(--brand-deep);
+    outline-offset: 2px;
+}
+
+.hero :focus-visible,
+.value-band :focus-visible,
+.closing :focus-visible {
+    outline-color: var(--white);
+}
+
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--ink);
+    color: var(--white);
+    padding: 10px 16px;
+    z-index: var(--z-skip-link);
+}
+
+.skip-link:focus {
+    left: 12px;
+    top: 12px;
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
-/* ヘッダー */
-.header {
-    background-color: var(--bg-white);
-    padding: 60px 0 40px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.app-name {
-    font-size: 36px;
+.eyebrow {
+    font-size: 13px;
     font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 12px;
+    color: var(--brand);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
 }
 
-.catchphrase {
-    font-size: 18px;
-    color: var(--text-secondary);
-    font-weight: 400;
+.eyebrow--on-brand {
+    color: var(--on-navy-soft);
 }
 
-/* 特徴セクション */
-.features {
-    padding: 80px 0;
-    background-color: var(--bg-white);
+h1, h2, h3,
+.hero__title, .features__title, .gallery__title, .closing__title {
+    text-wrap: balance;
 }
 
-.section-title {
-    font-size: 32px;
+p, .hero__lead, .feature-row__text, .page-content p, .faq-a, .closing__lead {
+    text-wrap: pretty;
+}
+
+/* ============================================================
+   ピル型ボタン
+   ============================================================ */
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
     font-weight: 700;
-    text-align: center;
-    margin-bottom: 48px;
-    color: var(--text-primary);
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-}
-
-.feature-card {
-    background-color: var(--bg-white);
-    padding: 32px 24px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
-}
-
-.feature-icon {
-    font-size: 56px;
-    margin-bottom: 16px;
-    display: block;
-}
-
-.feature-card h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-}
-
-.feature-card p {
     font-size: 15px;
-    line-height: 1.7;
-    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+    transition: color 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out, box-shadow 150ms ease-out;
 }
 
-/* スクリーンショットセクション */
-.screenshots {
-    padding: 80px 0;
-    background-color: var(--bg-light);
+.pill--outline {
+    border-color: var(--brand);
+    color: var(--brand);
+    background: transparent;
 }
 
-.device-section {
-    margin-bottom: 64px;
+.pill--outline:hover,
+.pill--outline:focus-visible {
+    background: var(--brand);
+    color: var(--on-brand);
 }
 
-.device-section:last-child {
-    margin-bottom: 0;
-}
-
-.device-title {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 32px;
-    color: var(--text-primary);
-}
-
-.screenshots-grid {
-    display: grid;
-    gap: 24px;
-    justify-items: center;
-}
-
-.screenshots-grid.iphone {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.screenshots-grid.ipad {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.screenshot-frame {
-    background-color: var(--bg-white);
-    border-radius: 12px;
-    padding: 16px;
+.pill--solid-light {
+    background: var(--white);
+    color: var(--brand-deep);
     box-shadow: var(--shadow);
-    width: 100%;
 }
 
-.screenshot-placeholder {
-    background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-    border-radius: 8px;
+.pill--solid-light:hover,
+.pill--solid-light:focus-visible {
+    background: var(--navy);
+    color: var(--white);
+}
+
+.pill--ghost-light {
+    border-color: rgba(255, 255, 255, 0.55);
+    color: var(--on-brand);
+    background: transparent;
+}
+
+.pill--ghost-light:hover,
+.pill--ghost-light:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: var(--white);
+}
+
+/* ============================================================
+   公開前バナー / ステータス表示
+   ============================================================ */
+
+.prelaunch-banner {
+    background: var(--navy);
+    color: var(--white);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 16px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--brand-deep);
+    background: rgba(0, 145, 254, 0.10);
+    padding: 8px 16px;
+    border-radius: 999px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: inline-block;
+    margin-right: 7px;
+}
+
+.pill--status {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ============================================================
+   マストヘッド
+   ============================================================ */
+
+.masthead {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+}
+
+.masthead__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.masthead__logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 21px;
+    color: var(--brand-deep);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.masthead__logo span {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--ink-soft);
+}
+
+.masthead .pill {
+    padding: 10px 22px;
+    font-size: 14px;
+}
+
+.masthead__back {
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--brand-deep);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.masthead__back:hover,
+.masthead__back:focus-visible {
+    color: var(--navy);
+}
+
+/* ============================================================
+   ヒーロー（index.html のみ）
+   ============================================================ */
+
+.hero {
+    background: var(--brand);
+    padding: 64px 0 56px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 4.4vw, 52px);
+    line-height: 1.25;
+    color: var(--on-brand);
+}
+
+.hero__title mark {
+    background: none;
+    color: var(--orange);
+}
+
+.hero__lead {
+    font-size: 17px;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 30em;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.hero__visual {
+    position: relative;
+}
+
+.device-placeholder {
+    background: var(--navy);
+    color: rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-deep);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.screenshot-placeholder.iphone-screen {
-    aspect-ratio: 9 / 19.5;
-}
-
-.screenshot-placeholder.ipad-screen {
+.device-placeholder--hero {
     aspect-ratio: 3 / 4;
+    width: 100%;
 }
 
-.screenshot-placeholder p {
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
+.device-placeholder--hero svg {
+    width: 64px;
+    height: 64px;
 }
 
-/* フッター */
-.footer {
-    background-color: var(--bg-white);
-    padding: 60px 0 40px;
+.chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+}
+
+.chip svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.chip--dark {
+    background: var(--navy);
+    color: var(--white);
+}
+
+.chip--light {
+    background: var(--white);
+    color: var(--brand-deep);
+}
+
+.chip--pos-a {
+    top: 14%;
+    left: -8%;
+}
+
+.chip--pos-b {
+    bottom: 12%;
+    right: -10%;
+}
+
+.hero__scroll {
+    position: absolute;
+    right: 24px;
+    bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ============================================================
+   4つの特徴（交互レイアウト）
+   ============================================================ */
+
+.features {
+    background: var(--paper);
+    padding: 88px 0;
+}
+
+.features__head {
     text-align: center;
-    border-top: 1px solid var(--border-color);
+    margin-bottom: 56px;
 }
 
-.download-button {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 16px 48px;
-    font-size: 18px;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    margin-bottom: 32px;
+.features__head .eyebrow {
+    justify-content: center;
 }
 
-.download-button:hover {
-    background-color: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+.features__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(24px, 3vw, 32px);
+    color: var(--ink);
 }
 
-.footer-links {
-    margin-bottom: 24px;
-}
-
-.footer-links a {
-    color: var(--accent-color);
-    text-decoration: none;
+.features__sub {
+    margin-top: 10px;
     font-size: 15px;
-    transition: opacity 0.2s ease;
+    color: var(--ink-soft);
 }
 
-.footer-links a:hover {
-    opacity: 0.7;
+.features__list {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
 }
 
-.copyright {
+.feature-row {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    align-items: center;
+    gap: 48px;
+}
+
+.feature-row--reverse {
+    grid-template-columns: 1fr 0.85fr;
+}
+
+.feature-row--reverse .device-placeholder {
+    order: 2;
+}
+
+.device-placeholder--row {
+    aspect-ratio: 4 / 3;
+}
+
+.device-placeholder--row svg {
+    width: 48px;
+    height: 48px;
+}
+
+.device-placeholder--brand {
+    background: var(--brand);
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.device-placeholder--navy {
+    background: var(--navy);
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.device-placeholder--orange {
+    background: var(--orange);
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.feature-row__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 12px;
+}
+
+.feature-row__text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    max-width: 32em;
+}
+
+.feature-row__note {
+    margin-top: 12px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+}
+
+.feature-row__note .note-mark {
+    font-weight: 700;
+    color: var(--brand);
+}
+
+/* ============================================================
+   価値の数値帯（濃紺アンカー）
+   ============================================================ */
+
+.value-band {
+    position: relative;
+    background: var(--navy);
+    padding: 88px 0;
+    overflow: hidden;
+}
+
+.value-band__watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(80px, 16vw, 220px);
+    color: rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.value-band__inner {
+    position: relative;
+    text-align: center;
+}
+
+.value-band__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.value-tile {
+    text-align: left;
+    padding: 28px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.value-tile__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+.value-tile__icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.value-tile__icon--brand {
+    background: rgba(0, 145, 254, 0.18);
+    color: var(--brand);
+}
+
+.value-tile__icon--orange {
+    background: rgba(254, 128, 68, 0.18);
+    color: var(--orange);
+}
+
+.value-tile__num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 26px;
+    color: var(--on-navy);
+}
+
+.value-tile__label {
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--on-navy-soft);
+}
+
+/* ============================================================
+   アプリ画面
+   ============================================================ */
+
+.gallery {
+    background: var(--paper-tint);
+    padding: 88px 0;
+}
+
+.gallery__head {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery__head .eyebrow {
+    justify-content: center;
+}
+
+.gallery__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(24px, 3vw, 32px);
+    color: var(--ink);
+}
+
+.gallery__sub {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--ink-soft);
+}
+
+.gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: start;
+    gap: 24px 20px;
+}
+
+.gallery__credit {
+    margin-top: 28px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-align: center;
+}
+
+.float-card {
+    position: relative;
+    grid-column: span 2;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.float-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.float-card__tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    background: var(--brand);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+}
+
+/* ============================================================
+   フッター（closing band）
+   ============================================================ */
+
+.closing {
+    background: var(--brand);
+    color: var(--on-brand);
+    padding: 88px 0 40px;
+    text-align: center;
+}
+
+.closing__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(24px, 3vw, 32px);
+}
+
+.closing__lead {
+    margin-top: 12px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.closing .pill {
+    margin-top: 28px;
+}
+
+.cache-bar {
+    max-width: 280px;
+    margin: 36px auto 0;
+}
+
+.cache-bar__track {
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+}
+
+.cache-bar__fill {
+    height: 100%;
+    width: 100%;
+    border-radius: 999px;
+    background: var(--orange);
+    transform-origin: left;
+    transition: transform 900ms ease-out;
+}
+
+.cache-bar.is-visible .cache-bar__fill {
+    transform: scaleX(0.08);
+}
+
+.cache-bar__caption {
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.closing__links {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+}
+
+.closing__links a,
+.closing__links .link-button {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 150ms ease-out, border-color 150ms ease-out;
+}
+
+.closing__links a:hover,
+.closing__links a:focus-visible,
+.closing__links .link-button:hover,
+.closing__links .link-button:focus-visible {
+    color: var(--white);
+    border-bottom-color: currentColor;
+}
+
+/* ボタン要素をリンクのように見せる（メールアドレスを静的HTMLに残さないための仕組み） */
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    display: inline;
+}
+
+.closing__divider {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.closing__copyright {
+    margin-top: 28px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============================================================
+   サブページ共通（サポート / プライバシーポリシー）
+   ============================================================ */
+
+.page-content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+}
+
+.page-content h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(26px, 3.4vw, 34px);
+    color: var(--ink);
+}
+
+.page-content > p.page-lede {
+    margin-top: 12px;
+    color: var(--ink-soft);
+    font-size: 15px;
+}
+
+.page-content h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--ink);
+    margin-top: 48px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+}
+
+.page-content h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    margin-top: 22px;
+    margin-bottom: 10px;
+}
+
+.page-content p {
+    margin-bottom: 14px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+}
+
+.page-content ul {
+    margin-bottom: 14px;
+    padding-left: 22px;
+}
+
+.page-content li {
+    margin-bottom: 8px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+}
+
+.page-content strong {
+    color: var(--ink);
+}
+
+.page-content a,
+.page-content .link-button {
+    color: var(--brand-deep);
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 65, 209, 0.3);
+}
+
+.page-meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+}
+
+.faq-item {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px 26px;
+    margin-bottom: 16px;
+}
+
+.faq-q {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.faq-q .faq-tag {
+    color: var(--brand-deep);
+    flex-shrink: 0;
+}
+
+.faq-a {
+    color: var(--ink-soft);
+    line-height: 1.85;
+    font-size: 14.5px;
+}
+
+.faq-a ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.faq-a li {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.85;
+    margin-bottom: 6px;
+}
+
+.contact-box {
+    background: var(--navy);
+    color: var(--on-navy);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    margin-top: 48px;
+    text-align: center;
+}
+
+.contact-box h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--on-navy);
+}
+
+.contact-box p {
+    color: var(--on-navy-soft);
     font-size: 14px;
-    color: var(--text-secondary);
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .app-name {
-        font-size: 28px;
-    }
+.contact-box .pill {
+    margin-top: 20px;
+    background: var(--white);
+    color: var(--navy);
+}
 
-    .catchphrase {
-        font-size: 16px;
-    }
+.contact-box .pill:hover,
+.contact-box .pill:focus-visible {
+    background: var(--orange);
+    color: var(--white);
+}
 
-    .section-title {
-        font-size: 26px;
-        margin-bottom: 32px;
-    }
+.contact-box .contact-email {
+    display: block;
+    margin-top: 14px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+}
 
-    .features {
-        padding: 60px 0;
-    }
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    width: 100%;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 150ms ease-out;
+}
 
-    .screenshots {
-        padding: 60px 0;
-    }
+.back-link:hover,
+.back-link:focus-visible {
+    color: var(--brand-deep);
+}
 
-    .features-grid {
+/* ============================================================
+   レスポンシブ
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .hero__inner {
         grid-template-columns: 1fr;
-        gap: 24px;
     }
 
-    .screenshots-grid.iphone,
-    .screenshots-grid.ipad {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .device-section {
-        margin-bottom: 48px;
-    }
-
-    .device-title {
-        font-size: 20px;
-        margin-bottom: 24px;
-    }
-
-    .feature-card {
-        padding: 28px 20px;
-    }
-
-    .download-button {
-        width: 100%;
+    .hero__visual {
         max-width: 320px;
-        padding: 14px 32px;
-        font-size: 16px;
+        margin: 0 auto;
+    }
+
+    .feature-row,
+    .feature-row--reverse {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .feature-row--reverse .device-placeholder {
+        order: 0;
+    }
+
+    .device-placeholder--row {
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .value-band__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .gallery__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .float-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 620px) {
+    .hero {
+        padding: 48px 0 64px;
+    }
+
+    .hero__title {
+        font-size: 30px;
+    }
+
+    .chip {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .chip--pos-a {
+        left: 4%;
+    }
+
+    .chip--pos-b {
+        right: 4%;
+    }
+
+    .hero__scroll {
+        display: none;
+    }
+
+    .features,
+    .value-band,
+    .gallery {
+        padding: 64px 0;
+    }
+
+    .closing {
+        padding: 64px 0 32px;
+    }
+
+    .gallery__grid {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
-    .header {
-        padding: 40px 0 30px;
+    .container,
+    .features__head,
+    .gallery__head {
+        padding-left: 18px;
+        padding-right: 18px;
     }
 
-    .app-name {
-        font-size: 24px;
-    }
-
-    .catchphrase {
-        font-size: 15px;
-    }
-
-    .section-title {
-        font-size: 22px;
-    }
-
-    .feature-icon {
-        font-size: 48px;
-    }
-
-    .feature-card h3 {
-        font-size: 18px;
-    }
-
-    .feature-card p {
-        font-size: 14px;
-    }
-}
-
-/* ダークモード対応 */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-primary: #E2E8F0;
-        --text-secondary: #A0AEC0;
-        --bg-light: #1A202C;
-        --bg-white: #2D3748;
-        --bg-cream: #1A202C;
-        --border-color: #4A5568;
-        --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
-    }
-
-    body {
-        background-color: var(--bg-cream);
-    }
-
-    .screenshot-placeholder {
-        background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-    }
-
-    .feature-card,
-    .screenshot-frame {
-        background-color: var(--bg-white);
-    }
-
-    .header,
-    .features,
-    .footer {
-        background-color: var(--bg-white);
-    }
-
-    .screenshots {
-        background-color: var(--bg-light);
+    .page-content {
+        padding: 40px 18px 60px;
     }
 }
